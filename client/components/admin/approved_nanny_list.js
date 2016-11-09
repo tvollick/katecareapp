@@ -1,6 +1,6 @@
 import React, { Component } from 'react'; 
 import { createContainer } from 'meteor/react-meteor-data'; 
-import { Nannies } from '../../imports/collections/nannies'; 
+import { Nannies } from '../../../imports/collections/nannies'; 
 
 class ApprovedList extends Component { 
 
@@ -9,15 +9,20 @@ class ApprovedList extends Component {
 			return ( 
 				<li key={nanny._id} className="thumb list-group-item">
 					<h1> {nanny.firstname} </h1>
-					<button onClick={this.handleUnapprove.bind(this, nanny._id)} type="button" className="btn btn-warning">Unapprove</button>
+					<button 
+						onClick={ ()=> this.onUnapprove(nanny) }
+						type="button" 
+						className="btn btn-warning">
+						Unapprove
+					</button>
 				</li>
 			); 
 		}); 
 	}
 
-	handleUnapprove (_id) {
+	onUnapprove (nanny) {
 		event.preventDefault(); 
-		Meteor.call('nannies.update.unapprove', _id, (error) => {
+		Meteor.call('nannies.update.unapprove', nanny, (error) => {
 			if (error) {
 				console.log(error); 
 			} else {

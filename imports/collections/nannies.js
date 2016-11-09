@@ -8,25 +8,24 @@ Meteor.methods({
 	'nannies.apply' : function (app) {
 		// run checks? 
 
-		Nannies.insert({
+		return Nannies.insert({
 			firstname: app.firstname,   
 			approved: false
 		}); 
 	}, 
 
 	'nannies.update.approve': function (_id) { 
-		Nannies.update(_id, {
+		return Nannies.update(_id, {
 			$set: {approved: true}
 		});
 	}, 
 
 	'nannies.update.unapprove': function (_id) {
-		console.log(_id);
-		Nannies.update(_id, { $set: {approved: false}}); 
+		return Nannies.update(_id, { $set: {approved: false}}); 
 	},
 
-	'nannies.delete' : function (_id) {
-		Nannies.remove(_id); 
+	'nannies.remove' : function (nanny) {
+		return Nannies.remove(nanny); 
 	}
 
 }); 

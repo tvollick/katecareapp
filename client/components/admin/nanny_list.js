@@ -1,6 +1,6 @@
 import React, { Component } from 'react'; 
 import { createContainer } from 'meteor/react-meteor-data'; 
-import { Nannies } from '../../imports/collections/nannies'; 
+import { Nannies } from '../../../imports/collections/nannies'; 
 
 class UnapprovedNannies extends Component { 
 
@@ -10,14 +10,25 @@ class UnapprovedNannies extends Component {
 			return (
 				<li key={nanny._id} className="thumb list-group-item">
 					<h1> {nanny.firstname} </h1>
-					<button onClick={this.handleApprove.bind(this, nanny._id)} type ="button" className="btn btn-success">Approve</button>
-					<button onClick={this.handleDelete.bind(this, nanny._id)} type="button" className="btn btn-danger">Delete Application</button>
+
+					<button 
+						className="btn btn-success"
+						onClick={ () => this.onApprove(nanny) }
+						>
+						Approve
+					</button>
+
+					<button
+						className="btn btn-danger pull-right"
+						onClick={ () => this.onRemove(nanny)}>
+						Delete Application
+					</button>
 				</li>
 			); 
 		}); 
 	}
 
-	handleApprove (id) { 
+	onApprove (id) { 
 		event.preventDefault(); 
 		Meteor.call('nannies.update.approve', id, (error) => {
 			if (error) {
@@ -28,11 +39,11 @@ class UnapprovedNannies extends Component {
 		}); 
 	}
 
-	handleDelete (id) {
+	onRemove (id) {
 
 		event.preventDefault(); 
 
-		Meteor.call('nannies.delete', id, (error) => {
+		Meteor.call('nannies.remove', id, (error) => {
 			if (error) { 
 
 			} else { 
