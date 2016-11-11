@@ -10,6 +10,7 @@ Meteor.methods({
 
 		return Nannies.insert({
 			firstname: app.firstname,   
+			lastname: app.lastname,
 			approved: false
 		}); 
 	}, 

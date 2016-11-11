@@ -9,7 +9,7 @@ class UnapprovedNannies extends Component {
 			console.log(nanny); 
 			return (
 				<li key={nanny._id} className="thumb list-group-item">
-					<h1> {nanny.firstname} </h1>
+					<h1> {`${nanny.lastname}, ${nanny.firstname}`} </h1>
 
 					<button 
 						className="btn btn-success"

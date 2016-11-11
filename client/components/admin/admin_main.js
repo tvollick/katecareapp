@@ -1,16 +1,20 @@
 import React, { Component } from 'react'; 
 
-import UnapprovedNannies from './nanny_list'; 
-import ApprovedList from './approved_nanny_list'; 
+import AdminHeader from './admin_header'; 
 
 
 class AdminMain extends Component {
+	constructor (props) {
+		super (props); 
+	}
 	render () {
+		console.log(this.props.children);
 		return (
-			<div className="container">
-				<h2> Admin Dashboard </h2>
-				<UnapprovedNannies /> 
-				<ApprovedList /> 
+			<div>
+				<AdminHeader /> 
+				<div className="container">
+					{this.props.children}
+				</div>
 			</div>
 		); 
 	}

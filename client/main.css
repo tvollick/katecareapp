@@ -1,0 +1,6 @@
+.admin-navbar { background-color: rgba(26, 188, 156, 0.39);  }
+.admin-panel { min-height: 300px; background-color: salmon; padding: 30px; margin-bottom: 30px;}
+.admin-panel-link { color: #fff; }
+.admin-panel-link:hover { color: #fff;  }
+
+.dummy-content { background-color: #ccc; height: 400px; }
