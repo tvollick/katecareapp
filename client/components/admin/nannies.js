@@ -6,7 +6,7 @@ import NannyAppList from './nanny_app_list';
 class AdminNannyPage extends Component { 
 	render () {
 		return (
-			<div className="container">
+			<div>
 				<NannyAppList /> 
 				<ApprovedNannyList /> 
 			</div>

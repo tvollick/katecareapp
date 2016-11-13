@@ -20,3 +20,7 @@ shell-server@0.2.1            # Server-side component of the `meteor shell` comm
 
 react-meteor-data
 twbs:bootstrap
+aldeed:simple-schema
+blaze
+accounts-password
+accounts-ui

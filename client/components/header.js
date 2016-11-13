@@ -9,10 +9,10 @@ const Header = () => {
 			</div>
 			<ul className="nav navbar-nav">
 				<li>
-					<Link to="/parents">For Parents </Link>
+					<Link to="/parents">For The Parents </Link>
 				</li>
 				<li>
-					<Link to="/nannies">For Nannies </Link> 
+					<Link to="/nannies">For The Nannies </Link> 
 				</li>
 			</ul>
 		</nav>
