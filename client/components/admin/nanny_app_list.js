@@ -10,19 +10,24 @@ class UnapprovedNannies extends Component {
 			return (
 				<li key={nanny._id} className="thumb list-group-item">
 					<h1> {`${nanny.lastname}, ${nanny.firstname}`} </h1>
+					<div className="nanny-info-wrapper"> 
+						<span className="phone">{`Phone: ${nanny.phone}`}</span>
+						<span className="address">{`Address: ${nanny.street}, ${nanny.citystate}, ${nanny.zip}`}</span> 
+					</div>
 
-					<button 
-						className="btn btn-success"
-						onClick={ () => this.onApprove(nanny) }
-						>
-						Approve
-					</button>
-
-					<button
-						className="btn btn-danger pull-right"
-						onClick={ () => this.onRemove(nanny)}>
-						Delete Application
-					</button>
+					<div className="btn-group" > 
+						<button 
+							className="btn btn-success"
+							onClick={ () => this.onApprove(nanny) }
+							>
+							Approve
+						</button>
+						<button
+							className="btn btn-danger pull-right"
+							onClick={ () => this.onRemove(nanny)}>
+							Delete Application
+						</button>
+					</div>
 				</li>
 			); 
 		}); 
@@ -55,7 +60,6 @@ class UnapprovedNannies extends Component {
 
 	render () { 
 		return (
-			<div className="container">
 				<div className="row">
 					<div className="col-md-12"> 
 						<h1>Unapproved </h1>
@@ -64,7 +68,6 @@ class UnapprovedNannies extends Component {
 						</ul>
 					</div> 
 				</div>
-			</div>
 		); 
 	}
 
