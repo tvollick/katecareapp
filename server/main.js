@@ -1,10 +1,19 @@
 import { Meteor } from 'meteor/meteor'; 
 import { Nannies } from '../imports/collections/nannies';
 import { Families } from '../imports/collections/families'; 
+import { Notifications} from '../imports/collections/notifications'; 
 import { WebApp } from 'meteor/webapp'; 
 import ConnectRoute from 'connect-route'; 
 
 Meteor.startup( () => {
+
+	// if admin publish notifications? 
+
+	Meteor.publish('notifications', function () {
+		return Notifications.find({}); 
+	}); 
+
+
 	Meteor.publish('nannies', function () {
 		return Nannies.find({}); 
 	}); 

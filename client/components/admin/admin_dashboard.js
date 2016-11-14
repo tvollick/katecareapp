@@ -1,6 +1,7 @@
 import React, { Component } from 'react'; 
 
 import AdminPanel from './admin_panel'; 
+import NotificationsList from './notifications_list'; 
 
 class AdminDashboard extends Component { 
 
@@ -9,8 +10,7 @@ class AdminDashboard extends Component {
 			<div>
 				<h2> Admin Dashboard </h2>
 				<div className="row">
-					<AdminPanel dest="families" title="Families"/>
-					<AdminPanel dest="nannies" title="Nannies"/>
+					<NotificationsList /> 
 				</div>
 			</div>
 		); 

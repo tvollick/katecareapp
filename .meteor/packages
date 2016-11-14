@@ -23,4 +23,9 @@ twbs:bootstrap
 aldeed:simple-schema
 blaze
 accounts-password
-accounts-ui
+accounts-base
+useraccounts:unstyled
+raix:handlebar-helpers
+
+aldeed:template-extension
+alanning:roles

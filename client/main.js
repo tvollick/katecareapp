@@ -12,17 +12,27 @@ import AdminNannyPage from './components/admin/nannies';
 import AdminFamiliesPage from './components/admin/families'; 
 import AdminDashboard from './components/admin/admin_dashboard'; 
 
+import Login from './components/accounts/login'; 
+import NannyLogin from './components/accounts/nanny/nanny'
+
 const routes = (
 	<Router history={browserHistory}>
 		<Route path="/" component={App}>
 			<IndexRoute component={HomeMain} /> 
 			<Route path="nannies" component={NannyPage} /> 
 			<Route path="parents" component={ParentPage} /> 
+
+			<Route path="account" component={Login} > 
+				<Route path="nanny" component={NannyLogin} /> 
+			</Route> 
+
 			<Route path="admin" component={AdminMain} > 
 				<IndexRoute component={AdminDashboard} /> 
 				<Route path="families" component={AdminFamiliesPage} /> 
 				<Route path="nannies" component={AdminNannyPage} />	
 			</Route>
+
+
 		</Route>
 	</Router>
 ); 
