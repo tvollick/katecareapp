@@ -14,11 +14,16 @@ Meteor.startup( () => {
 	}); 
 
 
-	Meteor.publish('nannies', function () {
+	Meteor.publish('adminNannies', function () {
 		return Nannies.find({}); 
 	}); 
 	Meteor.publish('families', function () { 
 		return Families.find({}); 
 	}); 
+
+	Meteor.publish('nannyApplication', function () { 
+		return Nannies.find({userId: this.userId }); 
+	}); 
+
 }); 
 

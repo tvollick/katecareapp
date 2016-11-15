@@ -9,10 +9,10 @@ class UnapprovedNannies extends Component {
 			console.log(nanny); 
 			return (
 				<li key={nanny._id} className="thumb list-group-item">
-					<h1> {`${nanny.lastname}, ${nanny.firstname}`} </h1>
-					<div className="nanny-info-wrapper"> 
-						<span className="phone">{`Phone: ${nanny.phone}`}</span>
-						<span className="address">{`Address: ${nanny.street}, ${nanny.citystate}, ${nanny.zip}`}</span> 
+					<h1> {`${nanny.appData.lastname}, ${nanny.appData.firstname}`} </h1>
+					<div className="nanny.appData-info-wrapper"> 
+						<span className="phone">{`Phone: ${nanny.appData.phone}`}</span>
+						<span className="address">{`Address: ${nanny.appData.street}, ${nanny.appData.citystate}, ${nanny.appData.zip}`}</span> 
 					</div>
 
 					<div className="btn-group" > 
@@ -74,6 +74,6 @@ class UnapprovedNannies extends Component {
 }
 
 export default createContainer (() => {
-	Meteor.subscribe('nannies'); 
-	return { nannies: Nannies.find({approved: false}).fetch()}; 
+	Meteor.subscribe('adminNannies'); 
+	return { nannies: Nannies.find().fetch()}; 
 }, UnapprovedNannies); 

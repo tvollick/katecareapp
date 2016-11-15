@@ -16,8 +16,11 @@ const Header = () => {
 				<li>
 					<Link to="/nannies">For The Nannies </Link> 
 				</li>
-				<SignInOut /> 
 			</ul>
+
+			<ul className="nav navbar-nav navbar-right account-toggle">
+				<SignInOut /> 
+			</ul> 
 		</nav>
 	); 
 }; 

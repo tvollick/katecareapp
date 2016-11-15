@@ -12,7 +12,7 @@ import AdminNannyPage from './components/admin/nannies';
 import AdminFamiliesPage from './components/admin/families'; 
 import AdminDashboard from './components/admin/admin_dashboard'; 
 
-import Login from './components/accounts/login'; 
+import UserMain from './components/accounts/user_main'; 
 import NannyLogin from './components/accounts/nanny/nanny'
 
 const routes = (
@@ -22,16 +22,13 @@ const routes = (
 			<Route path="nannies" component={NannyPage} /> 
 			<Route path="parents" component={ParentPage} /> 
 
-			<Route path="account" component={Login} > 
-				<Route path="nanny" component={NannyLogin} /> 
-			</Route> 
+			<Route path="account" component={UserMain} /> 
 
 			<Route path="admin" component={AdminMain} > 
 				<IndexRoute component={AdminDashboard} /> 
 				<Route path="families" component={AdminFamiliesPage} /> 
 				<Route path="nannies" component={AdminNannyPage} />	
 			</Route>
-
 
 		</Route>
 	</Router>

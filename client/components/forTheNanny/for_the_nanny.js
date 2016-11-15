@@ -1,6 +1,5 @@
 import React, { Component } from 'react'; 
-
-import NannyApplication from './nanny_application'; 
+import { Link } from 'react-router'; 
 
 class NannyPage extends Component {
 	render () { 
@@ -8,7 +7,9 @@ class NannyPage extends Component {
 			<div className="container">
 				<h2> For The Nannies </h2> 
 				<div className="dummy-content"></div>
-				<NannyApplication /> 
+				<Link to="/account" className="btn btn-default"> 
+					Kate Care Portal 
+				</Link> 
 			</div>
 		); 		
 	} 
