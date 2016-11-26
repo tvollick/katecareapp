@@ -1,6 +1,8 @@
 import React from 'react'; 
 import { Link } from 'react-router'; 
 
+import SignInOut from './accounts/sign_in_out'; 
+
 const Header = () => {
 	return (
 		<nav className="nav navbar-default">
@@ -15,6 +17,10 @@ const Header = () => {
 					<Link to="/nannies">For The Nannies </Link> 
 				</li>
 			</ul>
+
+			<ul className="nav navbar-nav navbar-right account-toggle">
+				<SignInOut /> 
+			</ul> 
 		</nav>
 	); 
 }; 

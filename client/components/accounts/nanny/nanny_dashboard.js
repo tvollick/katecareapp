@@ -1,0 +1,50 @@
+import React, {Component} from 'react'; 
+import { createContainer } from 'meteor/react-meteor-data'; 
+import NannyApplication from './nanny_application'; 
+
+// really should change this module name to NannyApplication or something
+import {Nannies} from '../../../../imports/collections/nannies'; 
+
+class NannyDashboard extends Component { 
+
+	renderApplication () { 
+		// if user has completed application
+		if (this.props.application.length) { 
+			return (
+				<h4> You've completed your application! Continue to the next steps! </h4>
+				// else allow them to edit application? 
+			);  
+		} else { 
+			// if user has not completed application 
+			return (
+				<NannyApplication userId={this.props.userId} /> 
+			); 
+		}
+	}
+
+	render () { 
+		return (
+			<div> 
+				<h2> NannyDashboard</h2> 
+				<ul className="list-group"> 
+					<li className="list-group-item"> 
+						<h3> Step 1: Nanny Application </h3> 
+						{this.renderApplication()}
+					</li> 
+					<li className="list-group-item"> 
+						<h3> Step 2: Attach Resume </h3> 
+					</li> 
+				</ul> 
+			</div> 
+		); 
+	}
+
+}
+
+export default createContainer((props) => {
+	Meteor.subscribe('nannyApplication'); 
+
+	return { application: Nannies.find().fetch()}; 
+}, NannyDashboard); 
+
+

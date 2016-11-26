@@ -6,6 +6,8 @@ import { Blaze } from 'meteor/blaze';
 class Accounts extends Component {
 
 	componentDidMount () {
+		console.log(this);
+
 		this.view = Blaze.render(Template.loginButtons, ReactDOM.findDOMNode(this.refs.container)); 
 	}
 
