@@ -40,7 +40,7 @@ Meteor.methods({
 				liveInOut: liveInOut, 
 				hasAllergies: hasAllergies, 
 				hasAllergiesDetails: hasAllergiesDetails, 
-				desiredSalary: desiredSalary
+				desiredSalary: desiredSalar
 			}
 		}); 
 	}, 

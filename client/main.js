@@ -15,6 +15,48 @@ import AdminDashboard from './components/admin/admin_dashboard';
 import UserMain from './components/accounts/user_main'; 
 import NannyLogin from './components/accounts/nanny/nanny'
 
+/**
+	*	Nannies need to be able to do the following: 
+	*		- Login / Create an account
+	*			- possibly through facebook
+	*		- Fill out nanny application
+	*			- also be able to edit nanny application
+	*				- edit single line item 
+	*		- Fill out resume/profile 
+	*		- Upload Documents
+	*		- Delete Documents
+	*		- If steps are complete:
+	*			- Edit profile
+	*			- View Profile
+	*		
+	*		- FUTURE FEATURES
+	*		- Contact Kate
+	*
+	*/
+
+
+/**
+	*	ADMIN FEATURES
+	*	Login as Admin
+	*	View Notifications when users do something
+	* View list of Nannies
+	*	View Nannies application Status 
+	*	View Nanny Profile
+	*	Give Family Access to Nanny Profile 
+	*
+	*/
+
+/**
+	* FAMILY ACCOUNT FEATURES
+	* Login
+	*	Start/Edit application
+	*	Start/Edit out info for each child 
+	*	View Approved Nanny Profile Page
+	*
+	*/ 
+
+
+
 const routes = (
 	<Router history={browserHistory}>
 		<Route path="/" component={App}>

@@ -29,7 +29,6 @@ class UserMain extends Component {
 
 	}
 
-
 	// else render profile? 
 
 	render () {
