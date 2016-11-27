@@ -1,6 +1,5 @@
 import React, { Component } from 'react'; 
 import {createContainer} from 'meteor/react-meteor-data'; 
-
 import {UserFields} from '../../../imports/collections/user_fields'; 
 
 class InputField extends Component { 
@@ -13,7 +12,6 @@ class InputField extends Component {
 	handleChange (e) {
 		// Meteor.call('field.update', e.target.value)
 		if (this.props.field.length) {
-			console.log('change'); 
 			Meteor.call('field.update', this.props.field[0], e.target.value, (error) => {
 				if (error) {
 					console.log(error); 
@@ -24,10 +22,9 @@ class InputField extends Component {
 		}
 	}
 
-
 	createField () {
 		if (!this.props.loading && !this.props.field.length) {
-			Meteor.call('field.create', this.props.user._id, this.props.slug, (error) => {
+			Meteor.call('field.create', this.props.user._id, this.props.slug, this.props.label, this.props.value,  (error) => {
 				if (error) {
 					console.log(error); 
 				} else {
@@ -39,13 +36,16 @@ class InputField extends Component {
 	}
 
 	deleteAll (e) {
-		e.preventDefault(); 
 		Meteor.call('field.deleteAll', (error) => {
 			if (error) {
 				console.log(error);
 			} 
 		});
 	}
+
+	// componentWillMount(){
+	// 	this.deleteAll(); 
+	// }
 
 	buildClasses () {
 		if (this.props.value === '') 

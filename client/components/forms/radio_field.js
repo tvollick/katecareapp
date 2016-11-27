@@ -45,7 +45,7 @@ class RadioField extends Component {
 
 	createField(){
 		if (!this.props.loading && !this.props.field.length) {
-			Meteor.call('field.create', this.props.user._id, this.props.slug, (error) => {
+			Meteor.call('field.create', this.props.user._id, this.props.slug, this.props.label, this.props.value, (error) => {
 				if (error) {
 					console.log(error); 
 				} else {

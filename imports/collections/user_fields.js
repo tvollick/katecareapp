@@ -1,7 +1,7 @@
 import { Mongo } from 'meteor/mongo'; 
 import { check, Match } from 'meteor/check'; 
 Meteor.methods({
-	'field.create' : function (userId, slug) { 
+	'field.create' : function (userId, slug, label, init) { 
 		// new SimpleSchema({
 		// 	userId: {type: String, min: 1}, 
 		// 	slug: {type: String, min: 1} 
@@ -10,7 +10,8 @@ Meteor.methods({
 		return UserFields.insert({
 			userId: userId, 
 			slug: slug, 
-			value: ''
+			value: init, 
+			label: label
 		}); 
 
 	}, 
