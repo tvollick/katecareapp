@@ -1,6 +1,7 @@
 import React, { Component } from 'react'; 
 
 import InputField from './../../forms/input_field'; 
+import RadioField from './../../forms/radio_field'; 
 
 class NannyApplication extends Component {
 	constructor (props) {
@@ -18,6 +19,20 @@ class NannyApplication extends Component {
 					<InputField label="Street" slug="street" /> 
 					<InputField label="City/State" slug="citystate" /> 
 					<InputField label="Zip Code" slug="zip" /> 
+					<RadioField 
+						label="Can you legally work in the US?" 
+						slug="legal_citizen" 
+						options={[
+							{
+								label: "Yes", 
+								value: 'yes'
+							}, 
+							{
+								label: 'No', 
+								value: 'no'
+							}
+						]}
+					/> 
 				</form> 
 			</div>
 		); 
