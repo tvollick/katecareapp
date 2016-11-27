@@ -12,7 +12,16 @@ class RadioField extends Component {
 	}
 
 	handleOptionChange (e) {
-		this.setState({ selectedOption: e.target.value }); 
+		if (this.props.field.length) {
+			Meteor.call('field.update', this.props.field[0], e.target.value, (error) => {
+				if (error) {
+					console.log(error); 
+				} else {
+					this.setState({error: ''}); 					
+				}
+			}); 
+		}
+		// this.setState({ selectedOption: e.target.value }); 
 	}
 
 	renderOptions () {
@@ -24,7 +33,7 @@ class RadioField extends Component {
 							className="form-check-input" 
 							type="radio" 
 							value={option.value} 
-							checked={this.state.selectedOption===option.value}
+							checked={this.props.value===option.value}
 							onChange={this.handleOptionChange}
 						/> 
 						{option.label}
