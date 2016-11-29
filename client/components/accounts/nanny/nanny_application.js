@@ -13,7 +13,7 @@ class NannyApplication extends Component {
 	render () {
 		return (
 			<div>
-				<form>
+				<form className="test">
 					<InputField label="First Name" slug="first_name" /> 
 					<InputField label="Last Name" slug="last_name" /> 
 					<InputField label="Phone" slug="phone" /> 
