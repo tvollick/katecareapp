@@ -1,6 +1,8 @@
 import React, {Component} from 'react'; 
 import { createContainer } from 'meteor/react-meteor-data'; 
 import NannyApplication from './nanny_application'; 
+import { Link } from 'react-router'; 
+
 
 // really should change this module name to NannyApplication or something
 import {Nannies} from '../../../../imports/collections/nannies'; 
@@ -11,8 +13,10 @@ class NannyDashboard extends Component {
 		// if user has completed application
 		if (this.props.application.length) { 
 			return (
-				<h4> You've completed your application! Continue to the next steps! </h4>
-				// else allow them to edit application? 
+				<div>
+					<h4> You've completed your application! Continue to the next steps! </h4>
+					<Link className="btn btn-default" to="/test"> Edit Application </Link>
+				</div>
 			);  
 		} else { 
 			// if user has not completed application 
@@ -42,8 +46,7 @@ class NannyDashboard extends Component {
 }
 
 export default createContainer((props) => {
-	Meteor.subscribe('nannyApplication'); 
-
+	Meteor.subscribe('nannyApplication');  
 	return { application: Nannies.find().fetch()}; 
 }, NannyDashboard); 
 
