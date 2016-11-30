@@ -5,7 +5,7 @@ import {UserFields} from '../../../imports/collections/user_fields';
 class InputField extends Component { 
 	constructor (props) {
 		super (props); 
-		this.state = { error: '', value: '', prevValue: '', dbCollection: null, savedVal: this.props.value }; 
+		this.state = { error: '', value: '', prevValue: '', dbCollection: null, savedVal: this.props.value, isNotEmpty: false }; 
 		this.handleChange = this.handleChange.bind(this);  
 	}
 
@@ -20,11 +20,13 @@ class InputField extends Component {
 				}
 			}); 
 		}
+
 	}
 
+	// shouldn't call this from render? 
 	createField () {
 		if (!this.props.loading && !this.props.field.length) {
-			Meteor.call('field.create', this.props.user._id, this.props.slug, this.props.label, this.props.value,  (error) => {
+			Meteor.call('field.create', this.props.user._id, this.props.slug, this.props.label, this.props.value, this.props.required,  (error) => {
 				if (error) {
 					console.log(error); 
 				} else {
@@ -32,27 +34,28 @@ class InputField extends Component {
 				}
 			}); 			
 		} 
-
 	}
 
-	deleteAll (e) {
-		Meteor.call('field.deleteAll', (error) => {
-			if (error) {
-				console.log(error);
-			} 
-		});
-	}
+	// deleteAll(){
+	// 	Meteor.call('field.deleteAll', (error) => {
+	// 		if (error) 
+	// 			console.log(error); 
+	// 	}); 
+	// }
 
 	// componentWillMount(){
 	// 	this.deleteAll(); 
 	// }
 
 	buildClasses () {
-		if (this.props.value === '') 
-			return "form-group has-warning";
-		else 
-			return "form-group has-success";  
-		
+		if (this.props.required && this.props.value === '') {
+			if (this.props.value === '') {
+				return "form-group has-warning";
+			} else {
+				return "form-group has-success";  				
+			}
+		} else 
+			return "form-group"; 
 	}
 
 	render () {

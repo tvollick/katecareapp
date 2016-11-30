@@ -4,22 +4,47 @@ import RadioField from './../../forms/radio_field';
 import TextareaField from '../../forms/textarea_field'; 
 import CheckboxField from '../../forms/checkbox_field'; 
 
+import {Applications} from '../../../../imports/collections/applications'; 
+import {createContainer} from 'meteor/react-meteor-data'; 
+
 class NannyApplication extends Component {
 	constructor (props) {
 		super (props); 
 		this.state = { }; 
 	}
 
+	// componentWillMount () {
+	// 	Meteor.call('application.deleteAll', (error) => {
+	// 		if (error) 
+	// 			console.log(error); 
+	// 	}); 
+	// }
+
+	createAppCollection () {
+
+		if(!this.props.loading && !this.props.application.length){
+			console.log('create'); 
+			Meteor.call('application.create', this.props.appSlug, (error) => {
+				if (error) { 
+					console.log(error); 
+				} 
+			})
+		} else if (!this.props.loading && this.props.application.length) {
+			console.log(this.props.application[0]); 
+		}
+	}
+
 	render () {
+		this.createAppCollection(); 
 		return (
 			<div>
 				<form className="test">
-					<InputField label="First Name" slug="first_name" /> 
-					<InputField label="Last Name" slug="last_name" /> 
-					<InputField label="Phone" slug="phone" /> 
-					<InputField label="Street" slug="street" /> 
-					<InputField label="City/State" slug="citystate" /> 
-					<InputField label="Zip Code" slug="zip" /> 
+					<InputField appSlug={this.props.appSlug} label="First Name" slug="first_name" required={true}/> 
+					<InputField appSlug={this.props.appSlug} label="Last Name" slug="last_name" /> 
+					<InputField appSlug={this.props.appSlug} label="Phone" slug="phone" /> 
+					<InputField appSlug={this.props.appSlug} label="Street" slug="street" /> 
+					<InputField appSlug={this.props.appSlug} label="City/State" slug="citystate" /> 
+					<InputField appSlug={this.props.appSlug} label="Zip Code" slug="zip" /> 
 					<hr/>
 					<RadioField 
 						label="Can you legally work in the US?" 
@@ -61,10 +86,12 @@ class NannyApplication extends Component {
 					<InputField 
 						label="Do you have any allergies(dogs, cats, ect.)?"		
 						slug="allergies"
+						appSlug={this.props.appSlug}
 					/> 
 					<InputField
 						label="What is your desired hourly/salary range?"
 						slug="salary"
+						appSlug={this.props.appSlug}
 					/>	
 					<RadioField 
 						label="Are you comfortable with light housekeeping and meal prep related to the children?" 
@@ -116,10 +143,12 @@ class NannyApplication extends Component {
 					<InputField
 						label="How did you hear about Kate Care?"
 						slug="referral"
+						appSlug={this.props.appSlug}
 					/>
 					<InputField
 						label="Were you referred by someone? If yes, who?"
 						slug="referred_by"
+						appSlug={this.props.appSlug}
 					/>									
 					<hr /> 
 					<CheckboxField 
@@ -138,4 +167,16 @@ class NannyApplication extends Component {
 	} 
 }
 
-export default NannyApplication; 
+export default createContainer ((props) => {
+	const appSlug = 'nanny_application'; 
+	const handle = Meteor.subscribe('applications'); 
+	const user = Meteor.user(); 
+	const loading = !handle.ready(); 
+	const application = Applications.find({slug: appSlug}).fetch(); 
+	return {
+		appSlug, 
+		user, 
+		loading, 
+		application 
+	}; 
+}, NannyApplication); 
