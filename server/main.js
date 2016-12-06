@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Nannies } from '../imports/collections/nannies';
 import { Families } from '../imports/collections/families';
 import { UserFields } from '../imports/collections/user_fields'; 
+import { Applications } from '../imports/collections/applications'; 
 
 import { Notifications} from '../imports/collections/notifications'; 
 import { WebApp } from 'meteor/webapp'; 
@@ -29,6 +30,10 @@ Meteor.startup( () => {
 
 	Meteor.publish('userFields', function () {
 		return UserFields.find({userId: this.userId }); 
+	}); 
+
+	Meteor.publish('applications', function () {
+		return Applications.find({userId: this.userId }); 
 	}); 
 
 }); 
