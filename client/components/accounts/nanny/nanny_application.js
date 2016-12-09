@@ -30,7 +30,7 @@ class NannyApplication extends Component {
 				} 
 			})
 		} else if (!this.props.loading && this.props.application.length) {
-			console.log(this.props.application[0]); 
+			console.log(this.props.application[0], 'application'); 
 		}
 	}
 
@@ -162,9 +162,28 @@ class NannyApplication extends Component {
 						]}
 					/>
 				</form> 
+				{this.applicationStatus()}
 			</div>
 		); 
 	} 
+	applicationStatus () {
+		if (!this.props.loading && this.props.application.length) {
+			const app = this.props.application[0]; 
+
+			for (var i=0; i < app.fields.length; i++){
+				if (app.fields[i].isEmpty) {
+					return (
+						<h3> Form Incomplete </h3>
+					);  
+				}
+			}
+
+			return (
+				<h3> Form Complete </h3>
+			); 
+
+		}
+	}
 }
 
 export default createContainer ((props) => {
@@ -173,6 +192,7 @@ export default createContainer ((props) => {
 	const user = Meteor.user(); 
 	const loading = !handle.ready(); 
 	const application = Applications.find({slug: appSlug}).fetch(); 
+
 	return {
 		appSlug, 
 		user, 

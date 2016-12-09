@@ -26,7 +26,7 @@ class InputField extends Component {
 	// shouldn't call this from render? 
 	createField () {
 		if (!this.props.loading && !this.props.field.length) {
-			Meteor.call('field.create', this.props.user._id, this.props.slug, this.props.label, this.props.value, this.props.required,  (error) => {
+			Meteor.call('field.create', this.props.user._id, this.props.slug, this.props.label, this.props.value, this.props.required, this.props.appSlug, (error) => {
 				if (error) {
 					console.log(error); 
 				} else {

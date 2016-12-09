@@ -1,7 +1,7 @@
 import { Mongo } from 'meteor/mongo'; 
 import { check, Match } from 'meteor/check'; 
 Meteor.methods({
-	'field.create' : function (userId, slug, label, init, required) { 
+	'field.create' : function (userId, slug, label, init, required, appSlug) { 
 		// new SimpleSchema({
 		// 	userId: {type: String, min: 1}, 
 		// 	slug: {type: String, min: 1} 
@@ -13,7 +13,8 @@ Meteor.methods({
 			value: init, 
 			label: label, 
 			required: (required ? required : false), 
-			isEmpty: false
+			isEmpty: true, 
+			appSlug: appSlug
 		}); 
 
 	}, 
@@ -27,10 +28,14 @@ Meteor.methods({
 		var isEmpty = false; 
 		if (newValue === '')
 			isEmpty = true;
-
 		if (isEmpty !== field.isEmpty) {
-			console.log(field); 
 			// call meteor method to update application status? 
+			// application.fieldChange
+			Meteor.call('application.fieldChange',field.slug, field.appSlug, isEmpty, (error) => {
+				if (error) {
+					console.log(error); 
+				}
+			}); 
 		}
 
 		return UserFields.update(_id, {
