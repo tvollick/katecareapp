@@ -1,4 +1,4 @@
-import React, { Component } from 'react'; 
+ import React, { Component } from 'react'; 
 
 import AdminHeader from './admin_header'; 
 

@@ -2,6 +2,91 @@ import { Mongo } from 'meteor/mongo';
 import { check, Match } from 'meteor/check'; 
 
 Meteor.methods({
+	'nannies.newNanny': function (userId, info) {
+		Meteor.call('nannies.newApplication',userId, info, (error) => {
+			if (error) { 
+				console.log(error); 
+			}
+		})
+	}, 
+
+	'nannies.newApplication':function (userId, info) {
+		return Nannies.insert({
+			userId: userId, 
+			profile: [
+				{
+					label: "First Name", 
+					slug: "first_name", 
+					inputType: 'text_field', 
+					value: ''
+				}, 
+				{
+					label: "Last Name", 
+					slug: "last_name", 
+					inputType: 'text_field',
+					value: ''
+				}, 
+				{
+					label: "Phone", 
+					slug: "phone", 
+					inputType: 'text_field', 
+					value: ''	
+				},
+				{
+					label: "Street", 
+					slug: "street", 
+					inputType: 'text_field', 
+					value: ''	
+				},
+				{
+					label: "City", 
+					slug: "city", 
+					inputType: 'text_field', 
+					value: ''	
+				}, 
+				{
+					label: "State", 
+					slug:"state",
+					inputType: 'text_field', 
+					value: ''
+				},
+				{
+					label: "Zip", 
+					slug: "zip", 
+					inputType: 'text_field', 
+					value: ''	
+				}
+			]
+
+		})
+	}, 
+
+	'nannies.handleFormSubmit': function (_id, fields) {
+		const nanny = Nannies.find(_id).fetch(); 
+		const tempFields = nanny[0].profile; 
+		
+		// seems inefficient.
+		// loop through values and update when find a match 
+		for (var i=0; i<tempFields.length; i++) {
+
+			for (var l=0; l<fields.length; l++) {
+
+				if (tempFields[i].slug === fields[l].slug) { 
+					tempFields[i].value = fields[l].value; 
+					console.log(tempFields[i].slug); 
+				}
+
+			}
+
+		}
+
+		console.log(tempFields); 
+
+		return Nannies.update(_id, {
+			$set: {profile: tempFields}
+		}); 
+
+	}, 
 
 	'nannies.apply': function (userId,{firstname, lastname, phone, street, citystate, zip, isLegal, isLegalExplanation, availability, position, liveInOut, hasAllergies, hasAllergiesDetails, desiredSalary}) {
 		new SimpleSchema({

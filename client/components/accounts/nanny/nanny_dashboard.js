@@ -18,12 +18,18 @@ class NannyDashboard extends Component {
 					<Link className="btn btn-default" to="/test"> Edit Application </Link>
 				</div>
 			);  
-		} else { 
+		}  else { 
 			// if user has not completed application 
 			return (
 				<NannyApplication userId={this.props.userId} /> 
 			); 
 		}
+	}
+
+	renderNannyApplication () {
+		return (
+			<h1> newNannyApp </h1> 
+		); 
 	}
 
 	render () { 
@@ -34,6 +40,10 @@ class NannyDashboard extends Component {
 					<li className="list-group-item"> 
 						<h3> Step 1: Nanny Application </h3> 
 						{this.renderApplication()}
+					</li> 
+					<li className="list-group-item">
+						<h3> Step 1: Nanny Application </h3> 
+						{this.renderNannyApplication()}
 					</li> 
 					<li className="list-group-item"> 
 						<h3> Step 2: Attach Resume </h3> 
@@ -46,7 +56,7 @@ class NannyDashboard extends Component {
 }
 
 export default createContainer((props) => {
-	Meteor.subscribe('nannyApplication');  
+	Meteor.subscribe('nannyProfile'); 
 	return { application: Nannies.find().fetch()}; 
 }, NannyDashboard); 
 

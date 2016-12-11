@@ -12,8 +12,11 @@ import AdminNannyPage from './components/admin/nannies';
 import AdminFamiliesPage from './components/admin/families'; 
 import AdminDashboard from './components/admin/admin_dashboard'; 
 
+import LoginModal from './components/accounts/login_modal'; 
+
 import UserMain from './components/accounts/user_main'; 
-import NannyLogin from './components/accounts/nanny/nanny'
+import NannyLogin from './components/accounts/nanny/nanny'; 
+import NannyStep1 from './components/accounts/nanny/nanny_step1'; 
 
 /**
 	*	Nannies need to be able to do the following: 
@@ -64,7 +67,10 @@ const routes = (
 			<Route path="nannies" component={NannyPage} /> 
 			<Route path="parents" component={ParentPage} /> 
 
-			<Route path="account" component={UserMain} /> 
+			<Route path="account" component={UserMain} > 
+				<IndexRoute component={LoginModal} /> 
+				<Route path="nanny-application" component={NannyStep1} /> 
+			</Route> 
 
 			<Route path="admin" component={AdminMain} > 
 				<IndexRoute component={AdminDashboard} /> 

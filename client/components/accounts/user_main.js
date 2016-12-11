@@ -10,22 +10,22 @@ class UserMain extends Component {
 	renderView () { 
 
 		// if user is logged in 
-		if (this.props.currentUser) { 
+		// if (this.props.currentUser) { 
 
-			if (Roles.userIsInRole(this.props.currentUser._id, 'nanny')) {
-				return <NannyDashboard userId={this.props.currentUser._id} /> 
-			} else if (Roles.userIsInRole(this.props.currentUser._id, 'family')) { 
-				console.log('family'); 
-			} else {``
-				console.log("neither nanny nor family"); 
-			}
+		// 	if (Roles.userIsInRole(this.props.currentUser._id, 'nanny')) {
+		// 		return <NannyDashboard userId={this.props.currentUser._id} /> 
+		// 	} else if (Roles.userIsInRole(this.props.currentUser._id, 'family')) { 
+		// 		console.log('family'); 
+		// 	} else {``
+		// 		console.log("neither nanny nor family"); 
+		// 	}
 
-		// else show login modal
-		} else { 
-			return (
-				<LoginModal /> 
-			); 
-		}
+		// // else show login modal
+		// } else { 
+		// 	return (
+		// 		<LoginModal /> 
+		// 	); 
+		// }
 
 	}
 
@@ -34,7 +34,7 @@ class UserMain extends Component {
 	render () {
 		return (
 			<div className="container"> 	
-				{this.renderView()}
+				{this.props.children}
 			</div> 
 		); 
 	}
