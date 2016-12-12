@@ -17,6 +17,8 @@ import LoginModal from './components/accounts/login_modal';
 import UserMain from './components/accounts/user_main'; 
 import NannyLogin from './components/accounts/nanny/nanny'; 
 import NannyStep1 from './components/accounts/nanny/nanny_step1'; 
+import ResumeForm from './components/accounts/nanny/nanny_resume'; 
+import NannyReferencesForm from './components/accounts/nanny/nanny_references'; 
 
 /**
 	*	Nannies need to be able to do the following: 
@@ -70,6 +72,8 @@ const routes = (
 			<Route path="account" component={UserMain} > 
 				<IndexRoute component={LoginModal} /> 
 				<Route path="nanny-application" component={NannyStep1} /> 
+				<Route path="nanny-resume-form" component={ResumeForm} /> 
+				<Route path="nanny-references" component={NannyReferencesForm} /> 
 			</Route> 
 
 			<Route path="admin" component={AdminMain} > 

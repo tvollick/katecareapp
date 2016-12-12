@@ -1,6 +1,6 @@
 import React, { Component } from 'react'; 
 
-class InputField extends Component { 
+class TextAreaField extends Component { 
 	constructor (props) {
 		super (props); 
 		this.state = {value:this.props.value}
@@ -29,14 +29,16 @@ class InputField extends Component {
 		return (
 			<div className={this.buildClasses()} > 
 				<label> { this.props.label } </label> 
-				<input
+				<textarea
 					className="form-control"
 					value={this.state.value}
 					onChange={this.handleChange}
-				/>
+					rows={5}
+				>
+				</textarea>
 			</div> 
 		); 
 	}
 }
 
-export default InputField; 
+export default TextAreaField; 

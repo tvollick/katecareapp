@@ -55,10 +55,54 @@ Meteor.methods({
 					slug: "zip", 
 					inputType: 'text_field', 
 					value: ''	
+				}, 
+				{
+					label: "Please explain the times you are available and the dates you can start:",
+					slug: 'availability', 
+					inputType: 'textarea', 
+					value: ''
+				}
+			], 
+			resume: [
+				{
+					label: "Please list your jobs in chronological order and if there are any gaps in your employment, please explain them in additional details.", 
+					slug: "job_history", 
+					inputType: 'textarea', 
+					value: ''
+				}, 
+				{
+					label: "In 100 words or less please include some details of your personality. This is your opportunity to shine to a parent. Let them know your interests, your background, some of your activities. What you are looking for in a position. What you write is up to you.", 
+					slug: "bio", 
+					inputType: 'textarea', 
+					value: ''
+				}, 
+				{
+					label: "Childcare Experience (CPR, First aid, years experience)", 
+					slug: "experience", 
+					inputType: 'textarea', 
+					value: ''
+				}, 
+				{
+					label: "Education", 
+					slug: 'education', 
+					inputType: 'textarea', 
+					value: ''
+				}, 
+				{
+					label: "Languages", 
+					slug: 'languages', 
+					inputType: 'text_field', 
+					value: ''
+				}, 
+				{
+					label: "Hobbies and Activities", 
+					slug: 'hobbies', 
+					inputType: 'textarea', 
+					value: ''
 				}
 			]
 
-		})
+		}); 
 	}, 
 
 	'nannies.handleFormSubmit': function (_id, fields) {
@@ -73,20 +117,40 @@ Meteor.methods({
 
 				if (tempFields[i].slug === fields[l].slug) { 
 					tempFields[i].value = fields[l].value; 
-					console.log(tempFields[i].slug); 
 				}
 
 			}
 
 		}
 
-		console.log(tempFields); 
-
 		return Nannies.update(_id, {
 			$set: {profile: tempFields}
 		}); 
 
 	}, 
+
+	'nannies.handleResumeSubmit':function(_id, fields) {
+		const nanny = Nannies.find(_id).fetch(); 
+		const tempFields = nanny[0].resume; 
+		
+		// seems inefficient.
+		// loop through values and update when find a match 
+		for (var i=0; i<tempFields.length; i++) {
+
+			for (var l=0; l<fields.length; l++) {
+
+				if (tempFields[i].slug === fields[l].slug) { 
+					tempFields[i].value = fields[l].value; 
+				}
+
+			}
+
+		}
+
+		return Nannies.update(_id, {
+			$set: {resume: tempFields}
+		}); 
+	},
 
 	'nannies.apply': function (userId,{firstname, lastname, phone, street, citystate, zip, isLegal, isLegalExplanation, availability, position, liveInOut, hasAllergies, hasAllergiesDetails, desiredSalary}) {
 		new SimpleSchema({

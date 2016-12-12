@@ -1,76 +1,54 @@
-import React, {Component} from 'react'; 
+import React, { Component } from 'react'; 
 import {Link} from 'react-router'; 
+
 import { createContainer } from 'meteor/react-meteor-data'; 
 import {Nannies} from '../../../../imports/collections/nannies'; 
 
 import InputField from './../../formFields/input_field'; 
-import TextareaField from '../../formFields/textarea_field'; 
 import RadioField from './../../forms/radio_field'; 
+import TextareaField from '../../formFields/textarea_field'; 
 import CheckboxField from '../../forms/checkbox_field'; 
 
-
-class NannyForm extends Component { 
-	constructor (props) {
+class ResumeForm extends Component { 
+	constructor (props) { 
 		super (props); 
-
-		this.state = {isComplete: false, fields:[
-			// fields schema that matches nannies COllection
-			{
-				slug: 'first_name', 
-				value: '', 
-				required: true
-			}, 
-			{
-				slug: 'last_name', 
-				value: '', 
-				required: true
-			}, 
-			{
-				slug: 'phone',
-				value: '', 
-				required: true
-			}, 
-			{
-				slug: 'street',
-				value: '', 
-				required: true
-			}, 
-			{
-				slug: 'city',
-				value: '', 
-				required: true
-			}, 
-			{
-				slug: 'state',
-				value: '', 
-				required: true
-			}, 
-			{
-				slug: 'zip',
-				value: '', 
-				required: true
-			}
+		this.state = {isComplete: false, fields: [
+			this.createFieldState('job_history'), 
+			this.createFieldState('bio'), 
+			this.createFieldState('experience'), 
+			this.createFieldState('education'), 
+			this.createFieldState('languages'), 
+			this.createFieldState('hobbies')	
 		]}; 
+
 
 		this.renderFields = this.renderFields.bind(this); 
 		this.handleFieldStatusChange = this.handleFieldStatusChange.bind(this); 
 		this.handleSubmit = this.handleSubmit.bind(this); 
+
 	}
 
 	handleSubmit (e) {
 		e.preventDefault(); 
-		
+
 		const fields = this.state.fields; 
-		const _id = this.props.userData[0]._id
+		const _id = this.props.userData[0]._id; 
 
-		Meteor.call('nannies.handleFormSubmit', _id, fields, (error) => {
+		Meteor.call('nannies.handleResumeSubmit', _id, fields, (error) => {
 			if (error)
-				console.log('error'); 
-			else
-				// change view in success
+				console.log(error); 
+			else 
 				this.setState({isComplete: true}); 
-		});  
+		}); 
+	}
 
+	createFieldState (slug, required ) {
+		if (slug && slug!=='') 
+			return {
+				slug: slug, 
+				value: '', 
+				required: required ? required : true 
+			}
 	}
 
 	handleFieldStatusChange (slug, value) {
@@ -90,11 +68,8 @@ class NannyForm extends Component {
 
 	}
 
-	// need to set up state with fields... 
-
-	renderFields(user) {
-
-		return user.profile.map((field) => {
+	renderFields (user) {
+		return user.resume.map((field) => {
 
 			switch(field.inputType) {
 				case 'text_field': 
@@ -111,14 +86,12 @@ class NannyForm extends Component {
 			}
 
 		}); 
-
 	}
 
 	renderSubmit () {
 
 		const fields = this.state.fields; 
 
-		// if any fields are blank, show warning Message
 		for ( var i=0; i<fields.length; i++ ) {
 			if (fields[i].value==="")
 				return (
@@ -144,25 +117,22 @@ class NannyForm extends Component {
 			return (
 				<div>
 					<div className="alert alert-success" role="alert">
-						Thanks for completing part one of the nanny application!
+						Thanks for completing part 2 of the nanny application!
 					</div>
 					<Link
-						to="/account/nanny-resume-form"
+						to="/account/nanny-references"
 						className="btn btn-success"
 						>
-						Continue to part 2
+						Continue to part 3 (References)
 					</Link>
 				</div>
 			); 
-		}
+		}		
 	}
-
-	// updating fields status is buggy 
 
 	renderForm () {
 		if (this.props.hasLoaded && this.props.userData.length) {
-
-			var user = this.props.userData[0];
+			var user = this.props.userData[0]; 
 			return (
 				<form>
 					{this.renderFields(user)}
@@ -170,26 +140,26 @@ class NannyForm extends Component {
 					{this.renderSuccess()}
 				</form>
 			); 
-
 		}
 	}
 
 	render () {
 		return (
-			<div> 
+			<div id="resume-form">
+				<h1>Nanny Resume</h1>
 				{this.renderForm()}
 			</div>
-		); 
-
+		)
 	}
 }
 
-export default createContainer((props)=> {
+
+export default createContainer ((props) => {
 	const handle = Meteor.subscribe('nannyProfile'); 
 	const hasLoaded = handle.ready(); 
-	const userData = Nannies.find({}).fetch();
+	const userData = Nannies.find({}).fetch(); 
 	return {
-		userData, 
+		userData,
 		hasLoaded
 	}; 
-}, NannyForm); 
+}, ResumeForm); 
