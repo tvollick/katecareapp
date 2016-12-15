@@ -3,7 +3,7 @@ import {Link} from 'react-router';
 
 import { createContainer } from 'meteor/react-meteor-data'; 
 import {Nannies} from '../../../../imports/collections/nannies'; 
-
+import ReferenceCard from './profile_comps/reference_card'; 
 import InputField from './../../formFields/input_field'; 
 
 class NannyReferencesForm extends Component { 
@@ -61,6 +61,7 @@ class NannyReferencesForm extends Component {
 
 		} else { 
 			// set error state 
+			console.log(this.state.references); 
 		}
 	}
 
@@ -86,6 +87,62 @@ class NannyReferencesForm extends Component {
 
 	}
 
+	renderReferences(){
+		return this.state.references.map((reference)=>{
+			return (
+				<ReferenceCard key={reference.phone} reference={reference} /> 
+			); 
+		});  
+	}
+
+	renderWarning () {
+		const references = this.state.references; 
+
+		if (references.length < 3) {
+			var warning = ''
+			if (references.length === 2) {
+				warning = "You need to add 1 more reference before continuing"; 
+			} else {
+				warning = "You need to add "+(3-references.length)+" more references before continuing"; 
+			}
+
+			return (
+				<div className="alert alert-warning" role="alert">
+  					{warning}
+				</div>
+			); 
+		}
+	} 
+
+	handleSaveClick (e) {
+		e.preventDefault(); 
+
+		const references = this.state.references; 
+		if (references >= 3) {
+			// Meteor function to save ref's
+			console.log(references); 
+		}
+
+	}
+
+	renderSaveReferences () {
+		var btnClass='btn btn-success'; 
+		const references = this.state.references; 
+
+		if (references.length < 3)
+			btnClass = 'btn btn-success disabled'; 
+
+		return (
+			<button 
+				className={btnClass}
+				onClick={this.handleSaveClick}
+			>
+				Save References
+			</button>
+		); 
+
+	}
+
 	render () {
 		return (
 			<div id="nanny-references-form">
@@ -95,6 +152,9 @@ class NannyReferencesForm extends Component {
 
 				</div>
 				{this.renderForm()}
+				{this.renderReferences()}
+				{this.renderWarning()}
+				{this.renderSaveReferences()}
 			</div>
 		)
 	}
