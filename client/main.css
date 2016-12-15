@@ -13,3 +13,5 @@
 
 .account-toggle {margin-right: 0; }
 
+.card { border: 1px solid #dedede; border-radius: 5px; }
+.card-block { padding: 15px;  }

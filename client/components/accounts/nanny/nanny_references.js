@@ -10,27 +10,77 @@ class NannyReferencesForm extends Component {
 
 	constructor (props) {
 		super(props); 
-		this.state = {isComplete: false}
+		this.state = {
+			isComplete: false, 
+			fields: {
+				phone: '',
+				name: '', 
+				email: '',
+				available: 'test'
+			}, 
+			references: []
+		}
+		this.handleFieldStatusChange = this.handleFieldStatusChange.bind(this); 
+		this.handleAddClick = this.handleAddClick.bind(this); 
+
 	}
 
+	handleFieldStatusChange (slug, value) {
+		var tempFields = this.state.fields; 
 
-	renderAddSubmit () {
-		// pick up here
+		tempFields[slug] = value; 
+
+		this.setState({fields: tempFields}); 
 	}
+
+	formIsComplete () { 
+		const fields = this.state.fields; 
+
+		if (fields.phone!=='' && fields.name!==''&&fields.email!=='') 
+			return true; 
+		else 
+			return false;
+	}
+
+	addButtonClass () {
+		// change with state of form 
+		if (this.formIsComplete())
+			return "btn btn-primary"; 
+		else 
+			return "btn btn-primary disabled"
+	}
+
+	handleAddClick (e) {
+		e.preventDefault(); 
+
+		if (this.formIsComplete()) { 
+
+			const tempReference = this.state.references; 
+			tempReference.push(this.state.fields); 
+			this.setState({references: tempReference}); 
+
+		} else { 
+			// set error state 
+		}
+	}
+
 	renderForm () {
 
 		return (
-			<div className="card">
-				<div className="card-block">
-					<h4> New Reference </h4> 
-					<form>
-						<InputField slug="name" label="Name" handleFieldStatusChange={this.handleFieldStatusChange} value="" />
-						<InputField slug="phone" label="Phone" handleFieldStatusChange={this.handleFieldStatusChange} value="" />
-						<InputField slug="email" label="Email" handleFieldStatusChange={this.handleFieldStatusChange} value="" />
-						<InputField slug="available" label="Best time to call (if applicable)" handleFieldStatusChange={this.handleFieldStatusChange} value="" />
-					</form>
-					{this.renderAddSubmit()}
-				</div>
+			<div className="card card-block">
+				<h4> New Reference </h4> 
+				<form>
+					<InputField slug="name" label="Name" handleFieldStatusChange={this.handleFieldStatusChange} value="" />
+					<InputField slug="phone" label="Phone" handleFieldStatusChange={this.handleFieldStatusChange} value="" />
+					<InputField slug="email" label="Email" handleFieldStatusChange={this.handleFieldStatusChange} value="" />
+					<InputField slug="available" label="Best time to call (if applicable)" handleFieldStatusChange={this.handleFieldStatusChange} value="" />
+					<button
+						className={this.addButtonClass()}
+						onClick={this.handleAddClick}
+					>
+						Add Reference
+					</button>
+				</form>
 			</div>
 		); 
 
