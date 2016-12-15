@@ -57,7 +57,7 @@ class NannyReferencesForm extends Component {
 
 			const tempReference = this.state.references; 
 			tempReference.push(this.state.fields); 
-			this.setState({references: tempReference}); 
+			this.setState({references: tempReference, fields:}); 
 
 		} else { 
 			// set error state 
