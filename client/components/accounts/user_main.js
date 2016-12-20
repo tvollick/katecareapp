@@ -6,6 +6,12 @@ import NannyDashboard from './nanny/nanny_dashboard';
 
 class UserMain extends Component { 
 
+	componentWillMount () {
+		if (this.props.currentUser) { 
+			console.log(this.props.currentUser); 
+		}
+	}
+
 	// if Nanny is not logged in render login template 
 	renderView () { 
 

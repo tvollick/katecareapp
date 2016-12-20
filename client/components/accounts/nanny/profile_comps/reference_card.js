@@ -4,6 +4,8 @@ class ReferenceCard extends Component {
 	constructor (props) {
 		super (props); 
 		this.state = {}; 
+
+		this.handleDelete = this.handleDelete.bind(this); 
 	}
 
 	renderField(label, value) {
@@ -39,7 +41,22 @@ class ReferenceCard extends Component {
 				)}
 			</ul>
 		); 
+	}
 
+	handleDelete () {
+		this.props.handleDelete(this.props.index); 
+	}
+
+	renderDelete() { 
+		return (
+			<button 
+				className="btn btn-danger"
+				onClick={this.handleDelete}
+			> 
+				Remove Reference
+			</button> 
+
+		); 
 	}
 
 	render () {
@@ -47,6 +64,7 @@ class ReferenceCard extends Component {
 		return (
 			<div className="card card-block">
 				{this.renderCard()}
+				{this.renderDelete()}
 			</div>
 		); 
 	}

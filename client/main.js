@@ -15,6 +15,7 @@ import AdminDashboard from './components/admin/admin_dashboard';
 import LoginModal from './components/accounts/login_modal'; 
 
 import UserMain from './components/accounts/user_main'; 
+import NannyDashboard from './components/accounts/nanny/nanny_dashboard'; 
 import NannyLogin from './components/accounts/nanny/nanny'; 
 import NannyStep1 from './components/accounts/nanny/nanny_step1'; 
 import ResumeForm from './components/accounts/nanny/nanny_resume'; 
@@ -71,6 +72,7 @@ const routes = (
 
 			<Route path="account" component={UserMain} > 
 				<IndexRoute component={LoginModal} /> 
+				<Route path="nanny-dashboard" component={NannyDashboard} /> 
 				<Route path="nanny-application" component={NannyStep1} /> 
 				<Route path="nanny-resume-form" component={ResumeForm} /> 
 				<Route path="nanny-references" component={NannyReferencesForm} /> 

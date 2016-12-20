@@ -69,7 +69,7 @@ class ResumeForm extends Component {
 	}
 
 	renderFields (user) {
-		return user.resume.map((field) => {
+		return user.forms.resume.fields.map((field) => {
 
 			switch(field.inputType) {
 				case 'text_field': 

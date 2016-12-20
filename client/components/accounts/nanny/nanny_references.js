@@ -1,10 +1,10 @@
 import React, { Component } from 'react'; 
-import {Link} from 'react-router'; 
+import {Link, browserHistory} from 'react-router'; 
 
 import { createContainer } from 'meteor/react-meteor-data'; 
 import {Nannies} from '../../../../imports/collections/nannies'; 
 import ReferenceCard from './profile_comps/reference_card'; 
-import InputField from './../../formFields/input_field'; 
+import InputField from './references/input_field'; 
 
 class NannyReferencesForm extends Component { 
 
@@ -20,12 +20,14 @@ class NannyReferencesForm extends Component {
 			}, 
 			references: []
 		}
-		this.handleFieldStatusChange = this.handleFieldStatusChange.bind(this); 
-		this.handleAddClick = this.handleAddClick.bind(this); 
 
+		this.handleFieldStatusChange = this.handleFieldStatusChange.bind(this);
+		this.handleSaveClick = this.handleSaveClick.bind(this); 
+		this.handleAddClick = this.handleAddClick.bind(this); 
+		this.handleCardDelete = this.handleCardDelete.bind(this); 
 	}
 
-	handleFieldStatusChange (slug, value) {
+	handleFieldStatusChange (slug, value) { 
 		var tempFields = this.state.fields; 
 
 		tempFields[slug] = value; 
@@ -57,7 +59,15 @@ class NannyReferencesForm extends Component {
 
 			const tempReference = this.state.references; 
 			tempReference.push(this.state.fields); 
-			this.setState({references: tempReference, fields:}); 
+			this.setState({
+				references: tempReference, 
+				fields:{
+				phone: '',
+				name: '', 
+				email: '',
+				available: '	'
+				} 
+			}); 
 
 		} else { 
 			// set error state 
@@ -71,10 +81,10 @@ class NannyReferencesForm extends Component {
 			<div className="card card-block">
 				<h4> New Reference </h4> 
 				<form>
-					<InputField slug="name" label="Name" handleFieldStatusChange={this.handleFieldStatusChange} value="" />
-					<InputField slug="phone" label="Phone" handleFieldStatusChange={this.handleFieldStatusChange} value="" />
-					<InputField slug="email" label="Email" handleFieldStatusChange={this.handleFieldStatusChange} value="" />
-					<InputField slug="available" label="Best time to call (if applicable)" handleFieldStatusChange={this.handleFieldStatusChange} value="" />
+					<InputField slug="name" label="Name" handleFieldStatusChange={this.handleFieldStatusChange} value={this.state.fields.name} />
+					<InputField slug="phone" label="Phone" handleFieldStatusChange={this.handleFieldStatusChange} value={this.state.fields.phone} />
+					<InputField slug="email" label="Email" handleFieldStatusChange={this.handleFieldStatusChange} value={this.state.fields.email}  />
+					<InputField slug="available" label="Best time to call (if applicable)" handleFieldStatusChange={this.handleFieldStatusChange} value={this.state.fields.available}  />
 					<button
 						className={this.addButtonClass()}
 						onClick={this.handleAddClick}
@@ -87,10 +97,17 @@ class NannyReferencesForm extends Component {
 
 	}
 
+	handleCardDelete (i) { 
+		// remove referece at given index 
+		const tempArr = this.state.references; 
+		tempArr.splice(i, 1); 
+		this.setState({references: tempArr}); 
+	}
+
 	renderReferences(){
-		return this.state.references.map((reference)=>{
+		return this.state.references.map((reference, i)=>{
 			return (
-				<ReferenceCard key={reference.phone} reference={reference} /> 
+				<ReferenceCard key={"reference-"+i} reference={reference} index={i} handleDelete={this.handleCardDelete} /> 
 			); 
 		});  
 	}
@@ -116,11 +133,17 @@ class NannyReferencesForm extends Component {
 
 	handleSaveClick (e) {
 		e.preventDefault(); 
-
+		const _id = this.props.userData[0]._id; 
 		const references = this.state.references; 
-		if (references >= 3) {
+		if (references.length >= 3) {
 			// Meteor function to save ref's
-			console.log(references); 
+			Meteor.call('nannies.handleReferencesSubmit', _id, references, (error) => {
+				if (error) {
+					console.log(error); 
+				} else { 
+					browserHistory.push('/account/')
+				}
+			}); 
 		}
 
 	}
@@ -152,9 +175,9 @@ class NannyReferencesForm extends Component {
 
 				</div>
 				{this.renderForm()}
-				{this.renderReferences()}
 				{this.renderWarning()}
 				{this.renderSaveReferences()}
+				{this.renderReferences()}
 			</div>
 		)
 	}

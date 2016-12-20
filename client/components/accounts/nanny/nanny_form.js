@@ -94,7 +94,7 @@ class NannyForm extends Component {
 
 	renderFields(user) {
 
-		return user.profile.map((field) => {
+		return user.forms.personalInfo.fields.map((field) => {
 
 			switch(field.inputType) {
 				case 'text_field': 

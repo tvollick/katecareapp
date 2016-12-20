@@ -26,6 +26,9 @@ accounts-password
 accounts-base
 useraccounts:unstyled
 raix:handlebar-helpers
+gwendall:auth-client-callbacks
+
 
 aldeed:template-extension
 alanning:roles
+msavin:mongol
